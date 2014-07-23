@@ -1,14 +1,21 @@
 fruits!
 =======
 
+To run,
 
-To try it out run
+    git clone git@github.com:unanimousarc/angular-test.git
 
-    git clone git@github.com:unanimousarc/angular-test.git && cd angular-test && npm install
+and then either,
+
+    cd angular-test && npm install
+
+or,
+
+    cd angular-test && vagrant up
 
 To run the server
 
     npm start
 
 
-Client-side logic found in public/
+Client-side logic found in public
