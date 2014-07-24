@@ -4,12 +4,16 @@
   <h1>Express <small>Welcome to Express</small></h1>
 </div>
 
+
 <div class="form-group">
   <input type="text" class="form-control" ng-model="search" />
 </div>
 
+
 <div class="list-group">
-  <a href="#/items/{{ item.name }}" class="list-group-item" ng-repeat="item in items | filter:search | orderBy:'name'">{{ item.name }}</a>
+  <a href="#/items/{{ item.name }}" class="list-group-item"
+     ng-repeat="item in items | filter:search | orderBy:'name'">{{ item.name | capitalize }}</a>
 </div>
 
 
+<button class="btn btn-default" go-click="/create">New Fruit</button>

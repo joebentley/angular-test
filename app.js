@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose').connect('mongodb://localhost/test');
 
 var app = express();
 
@@ -28,17 +29,39 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+// Schema for fruits
+var fruitSchema = mongoose.Schema({
+  name: String,
+  image: String
+});
+
+var Fruit = mongoose.model('Fruit', fruitSchema);
+
+
 app.get('/', routes.index);
 app.get('/users', user.list);
 
 app.get('/search', function (req, res) {
-  res.send([
-    { name: 'pear', image: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Alexander_Lucas_10.10.10.jpg'},
-    { name: 'apple', image: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg'},
-    { name: 'orange', image: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Orange_and_cross_section.jpg'}
-    ]);
+
+  // Return all of them!
+  Fruit.find({}, function (err, fruits) {
+    if (err) return console.error(err);
+
+    // Send the fruits to the client!
+    res.send(fruits);
+  });
 });
 
+app.put('/create', function (req, res) {
+  var newFruit = new Fruit({ name: req.body.name.toLowerCase(), image: req.body.image });
+
+  newFruit.save(function (err) {
+    if (err) return console.error(err);
+  });
+
+  res.send("Done");
+});
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

@@ -11,9 +11,13 @@ app.config(function ($routeProvider) {
       })
     .when('/items/:itemName',
       {
-        controller: 'itemController',
+        controller: 'itemViewController',
         templateUrl: 'partials/detail.html'
+      })
+    .when('/create',
+      {
+        controller: 'itemCreateController',
+        templateUrl: 'partials/create.html'
       })
     .otherwise({ redirectTo: '/search' });
 });
-
