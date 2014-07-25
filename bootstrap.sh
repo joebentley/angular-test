@@ -14,3 +14,5 @@ npm update
 
 cd /vagrant && npm install
 
+# Write shortcut for backing up db with easy command
+echo "alias backupdb=\"sudo rsync -av /data/db /vagrant/data\"" >> /home/vagrant/.bashrc
