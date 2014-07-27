@@ -1,11 +1,26 @@
 'use strict';
 
 
-app.controller('searchController', function ($scope, itemFactory) {
+app.controller('searchController', function ($scope, itemFactory, loginFactory) {
+
+  loginFactory.checkLogin(function (data) {
+    if (data === "success") {
+      $scope.loggedIn = true;
+    } else {
+      $scope.loggedIn = false;
+    }
+  });
+
   itemFactory.getItems(function (results) {
     // populate our items with the results of the ajax call
     $scope.items = results;
   });
+
+  $scope.logout = function () {
+    loginFactory.logout(function () {
+      $scope.loggedIn = false;
+    });
+  };
 });
 
 app.controller('itemViewController', function ($scope, $routeParams, itemFactory) {
@@ -34,6 +49,30 @@ app.controller('itemCreateController', function ($scope, itemFactory, $location)
 
   // Called when item is to be submitted
   $scope.submitItem = function () {
-    itemFactory.pushItem($scope.item);
-  }
+    itemFactory.pushItem($scope.item, function (data) {
+      // Redirect if logged in
+      if (data === "success") {
+        $location.path("/search");
+      } else {
+        // Print error message
+        $scope.submitFailed = true;
+      }
+    });
+  };
+});
+
+app.controller('loginController', function ($scope, loginFactory, $location) {
+  // Set default fail state
+  $scope.loginFailed = false;
+
+  $scope.submitLogin = function () {
+    loginFactory.login($scope.user, function (data) {
+      if (data === "success") {
+        // Redirect to home screen
+        $location.path("/search");
+      } else {
+        $scope.loginFailed = true;
+      }
+    });
+  };
 });

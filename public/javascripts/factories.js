@@ -13,3 +13,19 @@ app.factory('itemFactory', function ($http) {
     }
   };
 });
+
+app.factory('loginFactory', function ($http) {
+  return {
+    login: function (user, callback) {
+      $http.post('login', user).success(callback);
+    },
+
+    logout: function (callback) {
+      $http.get('logout').success(callback);
+    },
+
+    checkLogin: function (callback) {
+      $http.get('check_login').success(callback);
+    }
+  };
+});

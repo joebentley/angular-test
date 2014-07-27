@@ -1,0 +1,14 @@
+
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="username" ng-model="user.name">
+</div>
+
+<div class="form-group">
+  <input type="password" class="form-control" placeholder="password" ng-model="user.password">
+</div>
+
+<div class="form-group">
+  <button class="btn btn-default" ng-click="submitLogin()">Submit</button>
+</div>
+
+<h3 ng-if="loginFailed === true">Username or password incorrect</h3>

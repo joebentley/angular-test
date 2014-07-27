@@ -9,5 +9,11 @@
 </div>
 
 <div class="form-group">
-  <button class="btn btn-default" ng-click="submitItem()" go-click="/search">Submit</button>
+  <button class="btn btn-default" ng-click="submitItem()">Submit</button>
 </div>
+
+<div class="form-group">
+  <button class="btn btn-default" go-click="/search">Back to search</button>
+</div>
+
+<h3 ng-if="submitFailed">You need to be logged in to do this</h3>

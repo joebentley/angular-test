@@ -16,4 +16,8 @@
 </div>
 
 
-<button class="btn btn-default" go-click="/create">New Fruit</button>
+<div class="btn-group">
+  <button class="btn btn-default" ng-if="loggedIn" go-click="/create">New Fruit</button>
+  <button class="btn btn-default" go-click="/login">Login</button>
+  <button class="btn btn-default" ng-if="loggedIn" ng-click="logout()">Logout</button>
+</div>

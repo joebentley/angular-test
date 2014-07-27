@@ -19,5 +19,10 @@ app.config(function ($routeProvider) {
         controller: 'itemCreateController',
         templateUrl: 'partials/create.html'
       })
+    .when('/login',
+      {
+        controller: 'loginController',
+        templateUrl: 'partials/login.html'
+      })
     .otherwise({ redirectTo: '/search' });
 });
